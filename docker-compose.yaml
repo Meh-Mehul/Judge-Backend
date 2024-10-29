@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: express_app
     ports:
-      - "3000:3000"  # Map local port 3000 to container
+      - "5000:5000"  # Map local port 3000 to container
     depends_on:
       - redis
       - judge0
