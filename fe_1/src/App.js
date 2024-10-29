@@ -21,7 +21,7 @@ const App = () => {
             const submissionId = response.data.data.submissionId;
 
             setLoading(true);
-            setTimeout(() => fetchSTDOUT(submissionId), 3000);
+            setTimeout(() => fetchSTDOUT(submissionId), 2000);
         } catch (error) {
             console.error('Error sending code:', error);
         }
