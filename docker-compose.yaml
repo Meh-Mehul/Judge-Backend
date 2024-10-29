@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: express_app
+    ports:
+      - "3000:3000"  # Map local port 3000 to container
+    depends_on:
+      - redis
+      - judge0
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  msgq:
+    build:
+      context: ./MSGQ
+      dockerfile: Dockerfile
+    container_name: message_queue
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  frontend:
+    build:
+      context: ./fe_1
+      dockerfile: Dockerfile
+    container_name: frontend_app
+    ports:
+      - "3001:3001"  # Map local port 3001 to container
+
+  redis:
+    image: redis:alpine
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+
+  judge0:
+    image: judge0/api
+    container_name: judge0_instance
+    ports:
+      - "2358:2358"  # Default port for Judge0
